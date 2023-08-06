@@ -27,24 +27,16 @@
   </main>
 </template>
 <script lang="ts">
-interface IGMapAutoCompleteReplyResponse {
-  geometry: {
-    location: {
-      lat: () => number
-      lng: () => number
-    }
-  }
-  formatted_address: string
-  utc_offset_minutes: number
-}
-
-import { defineComponent, ref } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
+import IGMapAutoCompleteReplyResponse from '../types/api/response/GMapAutoCompleteReply'
+import ILocationHistoryItem from '../types/common/locationHistoryItem'
 import useMap from '../hooks/useMap'
+
 export default defineComponent({
   name: 'HomeView',
   setup() {
     const temp = ref<string>('temp1')
-
+    const locationHistory = reactive<ILocationHistoryItem[]>([])
     const { center, markers, setMap } = useMap()
     const changeTemp = (value: string) => {
       temp.value = value
@@ -53,7 +45,7 @@ export default defineComponent({
     const handleGetLocation = async () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setMap(position.coords.latitude, position.coords.longitude)
+          setMap({ latitude: position.coords.latitude, longitude: position.coords.longitude })
         },
         (error) => {
           console.error(error.message)
@@ -62,7 +54,7 @@ export default defineComponent({
     }
 
     const setPlace = (value: IGMapAutoCompleteReplyResponse) => {
-      setMap(value.geometry.location.lat(), value.geometry.location.lng())
+      setMap({ latitude: value.geometry.location.lat(), longitude: value.geometry.location.lng() })
     }
 
     return { temp, changeTemp, handleGetLocation, center, markers, setPlace }

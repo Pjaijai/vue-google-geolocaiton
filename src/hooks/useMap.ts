@@ -1,13 +1,6 @@
 import { ref } from 'vue'
+import { ICenter, IMarkers, ICoordinate } from '../types/common/map'
 
-interface ICenter {
-  lat: undefined | number
-  lng: undefined | number
-}
-
-interface IMarkers {
-  position: ICenter
-}
 export default function useMap() {
   const center = ref<ICenter>({ lat: undefined, lng: undefined })
   const markers = ref<IMarkers[]>([
@@ -19,7 +12,7 @@ export default function useMap() {
     }
   ])
 
-  const setMap = (latitude?: number, longitude?: number) => {
+  const setMap = ({ latitude, longitude }: ICoordinate) => {
     center.value.lat = latitude
     center.value.lng = longitude
     markers.value[0] = {
