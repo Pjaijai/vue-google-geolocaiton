@@ -1,6 +1,5 @@
 <template>
   <main>
-    <button @click="changeTemp('asdasd')">123</button>
     <button @click.prevent="handleGetLocation">search your location</button>
     <h1>{{ temp }}</h1>
     <h2>latitude:{{ center.lat }}</h2>
@@ -38,9 +37,6 @@ export default defineComponent({
     const temp = ref<string>('temp1')
     const locationHistory = reactive<ILocationHistoryItem[]>([])
     const { center, markers, setMap } = useMap()
-    const changeTemp = (value: string) => {
-      temp.value = value
-    }
 
     const handleGetLocation = async () => {
       navigator.geolocation.getCurrentPosition(
@@ -57,7 +53,7 @@ export default defineComponent({
       setMap({ latitude: value.geometry.location.lat(), longitude: value.geometry.location.lng() })
     }
 
-    return { temp, changeTemp, handleGetLocation, center, markers, setPlace }
+    return { temp, handleGetLocation, center, markers, setPlace }
   }
 })
 </script>
