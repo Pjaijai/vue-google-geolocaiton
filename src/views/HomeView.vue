@@ -36,12 +36,13 @@ export default defineComponent({
   setup() {
     const temp = ref<string>('temp1')
     const locationHistory = reactive<ILocationHistoryItem[]>([])
-    const { center, markers, setMap } = useMap()
+    const { center, markers, addMarker, setCenter } = useMap()
 
     const handleGetLocation = async () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setMap({ latitude: position.coords.latitude, longitude: position.coords.longitude })
+          addMarker({ latitude: position.coords.latitude, longitude: position.coords.longitude })
+          setCenter({ latitude: position.coords.latitude, longitude: position.coords.longitude })
         },
         (error) => {
           console.error(error.message)
@@ -50,7 +51,14 @@ export default defineComponent({
     }
 
     const setPlace = (value: IGMapAutoCompleteReplyResponse) => {
-      setMap({ latitude: value.geometry.location.lat(), longitude: value.geometry.location.lng() })
+      addMarker({
+        latitude: value.geometry.location.lat(),
+        longitude: value.geometry.location.lng()
+      })
+      setCenter({
+        latitude: value.geometry.location.lat(),
+        longitude: value.geometry.location.lng()
+      })
     }
 
     return { temp, handleGetLocation, center, markers, setPlace }

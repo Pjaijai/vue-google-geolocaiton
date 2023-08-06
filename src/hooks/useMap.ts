@@ -12,16 +12,19 @@ export default function useMap() {
     }
   ])
 
-  const setMap = ({ latitude, longitude }: ICoordinate) => {
+  const setCenter = ({ latitude, longitude }: ICoordinate) => {
     center.value.lat = latitude
     center.value.lng = longitude
-    markers.value[0] = {
+  }
+
+  const addMarker = ({ latitude, longitude }: ICoordinate) => {
+    markers.value.push({
       position: {
         lat: latitude,
         lng: longitude
       }
-    }
+    })
   }
 
-  return { center, markers, setMap }
+  return { center, markers, addMarker, setCenter }
 }
