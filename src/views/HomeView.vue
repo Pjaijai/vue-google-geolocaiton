@@ -5,8 +5,12 @@
     <h1>{{ temp }}</h1>
     <h2>latitude:{{ center.lat }}</h2>
     <h2>longitude:{{ center.lng }}</h2>
-    <GMapAutocomplete placeholder="This is a placeholder" @place_changed="setPlace">
-    </GMapAutocomplete>
+
+    <GMapAutocomplete
+      placeholder="This is a placeholder"
+      @place_changed="setPlace"
+      :options="{ fields: ['geometry', 'formatted_address', 'utc_offset_minutes'] }"
+    />
     <GMapMap
       :center="{ lat: center.lat, lng: center.lng }"
       :zoom="10"
@@ -23,42 +27,33 @@
   </main>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+interface IGMapAutoCompleteReplyResponse {
+  geometry: {
+    location: {
+      lat: () => number
+      lng: () => number
+    }
+  }
+  formatted_address: string
+  utc_offset_minutes: number
+}
 
+import { defineComponent, ref } from 'vue'
+import useMap from '../hooks/useMap'
 export default defineComponent({
   name: 'HomeView',
   setup() {
     const temp = ref<string>('temp1')
+
+    const { center, markers, setMap } = useMap()
     const changeTemp = (value: string) => {
       temp.value = value
     }
-    const center = ref<{ lat: number | undefined; lng: number | undefined }>({
-      lat: undefined,
-      lng: undefined
-    })
-    const markers = ref([
-      {
-        position: {
-          lat: center.value.lat,
-          lng: center.value.lng
-        }
-      }
-    ])
 
     const handleGetLocation = async () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          center.value.lat = position.coords.latitude
-          center.value.lng = position.coords.longitude
-
-          markers.value = [
-            {
-              position: {
-                lat: center.value.lat,
-                lng: center.value.lng
-              }
-            }
-          ]
+          setMap(position.coords.latitude, position.coords.longitude)
         },
         (error) => {
           console.error(error.message)
@@ -66,7 +61,10 @@ export default defineComponent({
       )
     }
 
-    const setPlace = (e) => {}
+    const setPlace = (value: IGMapAutoCompleteReplyResponse) => {
+      setMap(value.geometry.location.lat(), value.geometry.location.lng())
+    }
+
     return { temp, changeTemp, handleGetLocation, center, markers, setPlace }
   }
 })
