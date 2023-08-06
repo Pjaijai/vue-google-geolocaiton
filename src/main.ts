@@ -10,10 +10,11 @@ const app = createApp(App)
 app
   .use(VueGoogleMaps, {
     load: {
-      key: import.meta.env.VUE_APP_GOOGLE_API_KEY
+      key: `${import.meta.env.VITE_GOOGLE_API_KEY}`,
+      // key: `AIzaSyA3koTdnZHijyrnRFFqGtDSrniUlXjrXko`,
+      libraries: 'places'
     },
-    autobindAllEvents: true,
-    libraries: 'places'
+    autobindAllEvents: true
   })
   .use(router)
   .mount('#app')
