@@ -1,5 +1,8 @@
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
+import { computed, defineComponent, PropType, ref, watch } from 'vue'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 export default defineComponent({
   props: {
     handleGetLocation: {
@@ -8,45 +11,39 @@ export default defineComponent({
     },
     setPlace: {
       required: true,
-      type: Function as () => void
+      type: Promise<void>
+    },
+    utcOffset: {
+      required: true,
+      type: Number
+    },
+    currentTimeZone: {
+      required: true,
+      type: String
     }
   },
-  setup() {
-    const timeZoneText = ref('')
-    const handleClick = () => {
-      const currentDate = new Date()
+  setup(props) {
+    const utcTime = ref('')
 
-      // Get the time zone offset in minutes
-      const timezoneOffset = currentDate.getTimezoneOffset()
+    dayjs.extend(utc)
+    // dayjs.extend(timezone)
+    watch(
+      () => props.utcOffset,
+      (newOffset) => {
+        utcTime.value = dayjs().utcOffset(newOffset).format('HH:mm:ss')
+      }
+    )
 
-      // Convert the time zone offset to hours
-      const timezoneOffsetHours = timezoneOffset / 60
-
-      // Convert the offset to UTC format
-      const timezoneOffsetUTC = timezoneOffsetHours < 0 ? '+' : '-'
-      const timezoneOffsetAbs = Math.abs(timezoneOffsetHours)
-      timeZoneText.value = timezoneOffsetUTC + ('0' + timezoneOffsetAbs).slice(-2) + ':00'
+    return {
+      utcTime
     }
-    return { handleClick, timeZoneText }
   }
 })
 </script>
 
 <template>
-  <button
-    @click.prevent="
-      () => {
-        handleClick()
-        handleGetLocation()
-      }
-    "
-  >
-    search your location
-  </button>
-  <GMapAutocomplete
-    placeholder="This is a placeholder"
-    @place_changed="setPlace"
-    :options="{ fields: ['geometry', 'formatted_address', 'utc_offset_minutes', 'place_id'] }"
-  />
-  <div>{{ timeZoneText }}</div>
+  <button @click.prevent="handleGetLocation">search your location</button>
+  <GMapAutocomplete placeholder="This is a placeholder" @place_changed="setPlace" />
+  <div>{{ utcTime }}</div>
+  <div>{{ currentTimeZone }}</div>
 </template>

@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@fawmi/vue-google-maps": "^0.9.79",
+    "dayjs": "^1.11.9",
     "vue": "3.3.4",
     "vue-router": "^4.2.4"
   },

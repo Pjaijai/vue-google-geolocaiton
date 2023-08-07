@@ -1,7 +1,7 @@
-import IGetLocationByCoordinateResponse from '@/types/api/response/GetLocationByCoordinate'
+import IGetLocationByCoordinateResponse from '@/types/api/response/getLocationByCoordinate'
 import { ICoordinate } from '@/types/common/map'
 
-export async function getLocationByCoordinate(arg: ICoordinate) {
+const getLocationByCoordinate = async (arg: ICoordinate) => {
   const GOOGLE_API_URL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='
   const url = `${GOOGLE_API_URL}${arg.latitude},${arg.longitude}&key=${
     import.meta.env.VITE_GOOGLE_API_KEY
@@ -10,3 +10,5 @@ export async function getLocationByCoordinate(arg: ICoordinate) {
   const data: IGetLocationByCoordinateResponse = await res.json()
   return data
 }
+
+export default getLocationByCoordinate
