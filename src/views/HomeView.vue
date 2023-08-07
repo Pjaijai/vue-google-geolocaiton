@@ -47,17 +47,13 @@ export default defineComponent({
 
           const location = res.results[0]
 
-          const matchedHistory = history.value.find((his) => his.id === location.place_id)
-
-          if (matchedHistory) return
-
           dayjs.extend(utc)
           dayjs.extend(timezone)
           const timeZoneOffset = dayjs.tz(time.timeZoneId).utcOffset()
 
           currentTimeZone.value = time.timeZoneId
           utcOffset.value = timeZoneOffset
-          console.log(123123, time)
+
           addMarker({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
@@ -79,16 +75,13 @@ export default defineComponent({
     }
 
     const setPlace = async (value: IGMapAutoCompleteReplyResponse) => {
-      const matchedHistory = history.value.find((his) => his.id === value.place_id)
-
-      if (matchedHistory) return
       utcOffset.value = value.utc_offset_minutes
 
       const time = await getTimeZoneByCoordinate({
         latitude: value.geometry.location.lat(),
         longitude: value.geometry.location.lng()
       })
-      console.log(123123, time)
+
       currentTimeZone.value = time.timeZoneId
 
       addMarker({
