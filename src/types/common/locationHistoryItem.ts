@@ -1,8 +1,6 @@
 interface ILocationHistoryItem {
-  longitude: string
-  latitude: string
-  checked: boolean
   address: string
+  id: number
 }
 
 export default ILocationHistoryItem
