@@ -47,6 +47,7 @@ export default defineComponent({
           })
         },
         (error) => {
+          alert('Please allow Geolocation')
           console.error(error.message)
         }
       )
