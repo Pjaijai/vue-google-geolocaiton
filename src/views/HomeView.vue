@@ -2,28 +2,9 @@
   <main>
     <SearchHistory />
     <button @click.prevent="handleGetLocation">search your location</button>
-    <h1>{{ temp }}</h1>
-    <h2>latitude:{{ center.lat }}</h2>
-    <h2>longitude:{{ center.lng }}</h2>
+    <ToolBar v-bind:handle-get-location="handleGetLocation" v-bind:set-place="setPlace" />
     <button @click.prevent="remove">button</button>
-    <GMapAutocomplete
-      placeholder="This is a placeholder"
-      @place_changed="setPlace"
-      :options="{ fields: ['geometry', 'formatted_address', 'utc_offset_minutes'] }"
-    />
-    <GMapMap
-      :center="{ lat: center.lat, lng: center.lng }"
-      :zoom="10"
-      style="width: 50vw; height: 20rem"
-    >
-      <GMapMarker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        :clickable="true"
-        :draggable="true"
-      />
-    </GMapMap>
+    <GoogleMap v-bind:center="center" v-bind:markers="markers" />
     <SearchHistoryTable />
   </main>
 </template>
@@ -34,6 +15,8 @@ import IGMapAutoCompleteReplyResponse from '../types/api/response/GMapAutoComple
 import useMap from '../hooks/useMap'
 import useHistory from '../hooks/useHistory'
 import SearchHistoryTable from '@/components/SearchHistoryTable.vue'
+import ToolBar from '@/components/ToolBar.vue'
+import GoogleMap from '@/components/GoogleMap.vue'
 
 export default defineComponent({
   name: 'HomeView',
@@ -44,12 +27,14 @@ export default defineComponent({
     const handleGetLocation = async () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          const id = Math.random()
           addMarker({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            id: Math.random()
+            id
           })
           setCenter({ latitude: position.coords.latitude, longitude: position.coords.longitude })
+          addHistory({ address: `${position.coords.latitude},${position.coords.longitude}`, id })
         },
         (error) => {
           console.error(error.message)
@@ -77,6 +62,6 @@ export default defineComponent({
 
     return { temp, handleGetLocation, center, markers, setPlace, history, remove }
   },
-  components: { SearchHistoryTable }
+  components: { SearchHistoryTable, ToolBar, GoogleMap }
 })
 </script>

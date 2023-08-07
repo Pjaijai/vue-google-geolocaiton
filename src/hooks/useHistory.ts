@@ -1,5 +1,5 @@
 import ILocationHistoryItem from '@/types/common/locationHistoryItem'
-import { computed, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 const history = ref<ILocationHistoryItem[]>([])
 const selectedHistoryId = reactive<Set<number>>(new Set())
 export default function useHistory() {

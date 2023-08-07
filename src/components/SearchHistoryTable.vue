@@ -1,6 +1,7 @@
 <script lang="ts">
 import useHistory from '@/hooks/useHistory'
 import { computed, defineComponent, ref } from 'vue'
+
 export default defineComponent({
   name: 'SearchHistoryTable',
 
@@ -13,8 +14,9 @@ export default defineComponent({
       selectedHistoryId
     } = useHistory()
 
-    const handleClick = (e: any, id: number) => {
-      if (e.target.value === 'on') {
+    const handleClick = (e: Event, id: number) => {
+      const target = e.target as HTMLInputElement
+      if (target.value === 'on') {
         addSelectedHistoryId({ id })
       } else {
         removeSelectedHistoryId({ id })
