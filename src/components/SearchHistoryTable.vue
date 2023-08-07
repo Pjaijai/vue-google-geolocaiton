@@ -14,7 +14,7 @@ export default defineComponent({
       selectedHistoryId
     } = useHistory()
 
-    const handleClick = (e: Event, id: number) => {
+    const handleClick = (e: Event, id: string) => {
       const target = e.target as HTMLInputElement
       if (target.value === 'on') {
         addSelectedHistoryId({ id })
@@ -24,7 +24,7 @@ export default defineComponent({
     }
 
     const currentPage = ref(1)
-    const itemsPerPage = ref(2)
+    const itemsPerPage = ref(10)
 
     const maxPage = computed(() => {
       const page = Math.ceil(history.value.length / itemsPerPage.value)
