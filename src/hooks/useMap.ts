@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { ICenter, IMarkers, ICoordinate } from '../types/common/map'
+import { ICenter, IMarkers, ICoordinate } from '@/types/common/map'
 
 interface IAddMarker extends ICoordinate {
   id: string

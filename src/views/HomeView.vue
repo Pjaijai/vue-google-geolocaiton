@@ -8,13 +8,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import IGMapAutoCompleteReplyResponse from '../types/api/response/GMapAutoCompleteReply'
-import useMap from '../hooks/useMap'
-import useHistory from '../hooks/useHistory'
+import IGMapAutoCompleteReplyResponse from '@/types/api/response/GMapAutoCompleteReply'
+import useMap from '@/hooks/useMap'
+import useHistory from '@/hooks/useHistory'
 import ToolBar from '@/components/ToolBar.vue'
 import GoogleMap from '@/components/GoogleMap.vue'
 import HistorySection from '@/components/HistorySection.vue'
-import { getLocationByCoordinate } from '../utils/api/getLocationByCoordinate'
+import getLocationByCoordinate from '@/utils/api/getLocationByCoordinate'
 export default defineComponent({
   name: 'HomeView',
   setup() {
