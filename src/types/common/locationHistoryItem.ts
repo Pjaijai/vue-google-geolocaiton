@@ -1,6 +1,6 @@
 interface ILocationHistoryItem {
   address: string
-  id: number
+  id: string
 }
 
 export default ILocationHistoryItem

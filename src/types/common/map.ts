@@ -5,7 +5,7 @@ interface ICenter {
 
 interface IMarkers {
   position: ICenter
-  id: number
+  id: string
 }
 
 interface ICoordinate {

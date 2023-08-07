@@ -1,9 +1,9 @@
 import ILocationHistoryItem from '@/types/common/locationHistoryItem'
 import { reactive, ref } from 'vue'
 const history = ref<ILocationHistoryItem[]>([])
-const selectedHistoryId = reactive<Set<number>>(new Set())
+const selectedHistoryId = reactive<Set<string>>(new Set())
 export default function useHistory() {
-  const addHistory = ({ address, id }: { address: string; id: number }) => {
+  const addHistory = ({ address, id }: { address: string; id: string }) => {
     history.value.unshift({
       address,
       id
@@ -14,11 +14,11 @@ export default function useHistory() {
     selectedHistoryId.clear()
   }
 
-  const addSelectedHistoryId = ({ id }: { id: number }) => {
+  const addSelectedHistoryId = ({ id }: { id: string }) => {
     selectedHistoryId.add(id)
   }
 
-  const removeSelectedHistoryId = ({ id }: { id: number }) => {
+  const removeSelectedHistoryId = ({ id }: { id: string }) => {
     selectedHistoryId.delete(id)
   }
   const removeSelectedHistory = () => {

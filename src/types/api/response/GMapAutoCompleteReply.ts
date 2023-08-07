@@ -7,6 +7,7 @@ interface IGMapAutoCompleteReplyResponse {
   }
   formatted_address: string
   utc_offset_minutes: number
+  place_id: string
 }
 
 export default IGMapAutoCompleteReplyResponse

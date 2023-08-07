@@ -1,11 +1,8 @@
 <template>
   <main>
-    <SearchHistory />
-    <button @click.prevent="handleGetLocation">search your location</button>
     <ToolBar v-bind:handle-get-location="handleGetLocation" v-bind:set-place="setPlace" />
-    <button @click.prevent="remove">button</button>
     <GoogleMap v-bind:center="center" v-bind:markers="markers" />
-    <SearchHistoryTable />
+    <HistorySection v-bind:handle-remove-history="handleRemoveHistory" />
   </main>
 </template>
 
@@ -14,10 +11,10 @@ import { defineComponent, ref } from 'vue'
 import IGMapAutoCompleteReplyResponse from '../types/api/response/GMapAutoCompleteReply'
 import useMap from '../hooks/useMap'
 import useHistory from '../hooks/useHistory'
-import SearchHistoryTable from '@/components/SearchHistoryTable.vue'
 import ToolBar from '@/components/ToolBar.vue'
 import GoogleMap from '@/components/GoogleMap.vue'
-
+import HistorySection from '@/components/HistorySection.vue'
+import { getLocationByCoordinate } from '../utils/api/getLocationByCoordinate'
 export default defineComponent({
   name: 'HomeView',
   setup() {
@@ -26,42 +23,59 @@ export default defineComponent({
     const { history, addHistory, removeSelectedHistory, selectedHistoryId } = useHistory()
     const handleGetLocation = async () => {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const id = Math.random()
+        async (position) => {
+          const res = await getLocationByCoordinate({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          })
+
+          const location = res.results[0]
+
+          const matchedHistory = history.value.find((his) => his.id === location.place_id)
+
+          if (matchedHistory) return
+
           addMarker({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            id
+            id: location.place_id
           })
           setCenter({ latitude: position.coords.latitude, longitude: position.coords.longitude })
-          addHistory({ address: `${position.coords.latitude},${position.coords.longitude}`, id })
+          addHistory({
+            address: location.formatted_address,
+            id: location.place_id
+          })
         },
         (error) => {
           console.error(error.message)
         }
       )
     }
+
     const setPlace = (value: IGMapAutoCompleteReplyResponse) => {
-      const id = ref(Math.random())
+      const matchedHistory = history.value.find((his) => his.id === value.place_id)
+
+      if (matchedHistory) return
+
       addMarker({
         latitude: value.geometry.location.lat(),
         longitude: value.geometry.location.lng(),
-        id: id.value
+        id: value.place_id
       })
       setCenter({
         latitude: value.geometry.location.lat(),
         longitude: value.geometry.location.lng()
       })
-      addHistory({ address: value.formatted_address, id: id.value })
+      addHistory({ address: value.formatted_address, id: value.place_id })
     }
 
-    const remove = async () => {
+    const handleRemoveHistory = async () => {
       removeMarkers({ ids: selectedHistoryId })
       removeSelectedHistory()
     }
 
-    return { temp, handleGetLocation, center, markers, setPlace, history, remove }
+    return { temp, handleGetLocation, center, markers, setPlace, history, handleRemoveHistory }
   },
-  components: { SearchHistoryTable, ToolBar, GoogleMap }
+  components: { ToolBar, GoogleMap, HistorySection }
 })
 </script>

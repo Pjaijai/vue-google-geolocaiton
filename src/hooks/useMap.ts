@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { ICenter, IMarkers, ICoordinate } from '../types/common/map'
 
 interface IAddMarker extends ICoordinate {
-  id: number
+  id: string
 }
 export default function useMap() {
   const center = ref<ICenter>({ lat: undefined, lng: undefined })
@@ -23,7 +23,7 @@ export default function useMap() {
     })
   }
 
-  const removeMarkers = ({ ids }: { ids: Set<number> }) => {
+  const removeMarkers = ({ ids }: { ids: Set<string> }) => {
     markers.value = markers.value.filter((marker) => {
       return !ids.has(marker.id)
     })
