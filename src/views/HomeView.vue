@@ -49,7 +49,10 @@ export default defineComponent({
 
           dayjs.extend(utc)
           dayjs.extend(timezone)
-          const timeZoneOffset = dayjs.tz(time.timeZoneId).utcOffset()
+
+          const timeZoneId = 'Europe/London'
+          const currentDate = dayjs()
+          const timeZoneOffset = currentDate.tz(timeZoneId).utcOffset()
 
           currentTimeZone.value = time.timeZoneId
           utcOffset.value = timeZoneOffset
@@ -117,4 +120,3 @@ export default defineComponent({
   components: { ToolBar, GoogleMap, HistorySection }
 })
 </script>
-@/types/api/response/gMapAutoCompleteReply @/types/api/response/GMapAutoCompleteReply

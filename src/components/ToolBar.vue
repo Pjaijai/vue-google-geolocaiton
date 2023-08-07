@@ -1,8 +1,7 @@
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, watch } from 'vue'
+import { defineComponent, PropType, ref, watch } from 'vue'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import timezone from 'dayjs/plugin/timezone'
 export default defineComponent({
   props: {
     handleGetLocation: {

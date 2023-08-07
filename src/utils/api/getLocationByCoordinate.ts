@@ -1,4 +1,4 @@
-import IGetLocationByCoordinateResponse from '@/types/api/response/getLocationByCoordinate'
+import IGetLocationByCoordinateResponse from '@/types/api/response/GetLocationByCoordinate'
 import { ICoordinate } from '@/types/common/map'
 
 const getLocationByCoordinate = async (arg: ICoordinate) => {
