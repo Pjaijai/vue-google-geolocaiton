@@ -17,7 +17,7 @@ export default {
 
 <template>
   <div class="w-screen h-screen absolute z-0">
-    <GMapMap :center="{ lat: center.lat, lng: center.lng }" :zoom="10" class="w-full h-full">
+    <GMapMap :center="{ lat: center.lat, lng: center.lng }" :zoom="15" class="w-full h-full">
       <GMapMarker
         :key="index"
         v-for="(m, index) in markers"
