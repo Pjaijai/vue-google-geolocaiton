@@ -43,10 +43,13 @@ export default defineComponent({
 
 <template>
   <div
-    class="rounded-lg absolute left-1/2 transform -translate-x-1/2 top-[7%] md:top-2 transition-all z-10 bg-white text-black px-4 w-full md:w-fit py-2"
+    class="rounded-lg absolute left-1/2 transform -translate-x-1/2 top-[7%] md:top-2 transition-all z-10 bg-white text-black px-4 w-full md:w-fit p-2"
   >
     <div class="flex flex-row justify-center items-center w-full gap-4">
-      <button @click.prevent="handleGetLocation">locate</button>
+      <button @click.prevent="handleGetLocation" class="p-2 hover:bg-slate-50">
+        <font-awesome-icon icon="map-location-dot" />
+      </button>
+
       <GMapAutocomplete
         placeholder="Search"
         @place_changed="setPlace"

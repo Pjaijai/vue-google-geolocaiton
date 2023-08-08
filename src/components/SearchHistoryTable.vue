@@ -93,9 +93,13 @@ export default defineComponent({
 
     <div class="absolute bottom-5 w-full">
       <div class="flex flex-row items-center justify-around">
-        <button @click="handleToPreviousPage">p</button>
-        <h2>{{ currentPage }}/{{ maxPage }}</h2>
-        <button @click="handleToNextPage">n</button>
+        <button @click="handleToPreviousPage">
+          <font-awesome-icon :icon="['fas', 'chevron-left']" size="sm" class="p-2" />
+        </button>
+        <h2 class="p-2">{{ currentPage }}/{{ maxPage }}</h2>
+        <button @click="handleToNextPage" class="p-2">
+          <font-awesome-icon :icon="['fas', 'chevron-right']" size="sm" />
+        </button>
       </div>
     </div>
   </div>
