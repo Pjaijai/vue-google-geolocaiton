@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="relative w-screen h-screen">
     <ToolBar
       v-bind:handle-get-location="handleGetLocation"
       v-bind:set-place="setPlace"

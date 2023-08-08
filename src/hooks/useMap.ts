@@ -5,7 +5,7 @@ interface IAddMarker extends ICoordinate {
   id: string
 }
 export default function useMap() {
-  const center = ref<ICenter>({ lat: undefined, lng: undefined })
+  const center = ref<ICenter>({ lat: 43.6532, lng: -79.3832 })
   const markers = ref<IMarkers[]>([])
 
   const setCenter = ({ latitude, longitude }: ICoordinate) => {

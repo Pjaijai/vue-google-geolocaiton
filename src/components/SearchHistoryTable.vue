@@ -66,17 +66,37 @@ export default defineComponent({
 </script>
 
 <template>
-  <button @click="handleToPreviousPage">prev</button>
-  <button @click="handleToNextPage">next</button>
-  <h2>{{ currentPage }}/{{ maxPage }}</h2>
-  <div v-for="item in displayedItems" :key="item.id">
-    <input
-      type="checkbox"
-      @change="(e) => handleClick(e, item.id)"
-      :checked="item.id in selectedHistoryId"
-    />
-    <div>
-      {{ item.address }}
+  <div class="relative w-full h-full">
+    <div v-if="displayedItems.length" class="w-full h-full">
+      <div
+        v-for="item in displayedItems"
+        :key="item.id"
+        class="w-full flex flex-row items-center p-2 h-[9%] text-base border-b"
+      >
+        <input
+          type="checkbox"
+          @change="(e) => handleClick(e, item.id)"
+          :checked="item.id in selectedHistoryId"
+          class="flex-none rounded-sm border-2"
+        />
+        <div class="flex-1 text-center">
+          {{ item.address }}
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="!displayedItems.length"
+      class="text-gray-500 font-semibold absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+    >
+      No Record
+    </div>
+
+    <div class="absolute bottom-5 w-full">
+      <div class="flex flex-row items-center justify-around">
+        <button @click="handleToPreviousPage">p</button>
+        <h2>{{ currentPage }}/{{ maxPage }}</h2>
+        <button @click="handleToNextPage">n</button>
+      </div>
     </div>
   </div>
 </template>

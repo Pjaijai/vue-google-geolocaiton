@@ -16,17 +16,15 @@ export default {
 </script>
 
 <template>
-  <GMapMap
-    :center="{ lat: center.lat, lng: center.lng }"
-    :zoom="10"
-    style="width: 50vw; height: 20rem"
-  >
-    <GMapMarker
-      :key="index"
-      v-for="(m, index) in markers"
-      :position="m.position"
-      :clickable="true"
-      :draggable="true"
-    />
-  </GMapMap>
+  <div class="w-screen h-screen absolute z-0">
+    <GMapMap :center="{ lat: center.lat, lng: center.lng }" :zoom="10" class="w-full h-full">
+      <GMapMarker
+        :key="index"
+        v-for="(m, index) in markers"
+        :position="m.position"
+        :clickable="true"
+        :draggable="true"
+      />
+    </GMapMap>
+  </div>
 </template>
