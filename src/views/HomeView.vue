@@ -57,10 +57,11 @@ export default defineComponent({
           currentTimeZone.value = time.timeZoneId
           utcOffset.value = timeZoneOffset
 
+          const id = `${Math.random()}`
           addMarker({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            id: location.place_id
+            id: id
           })
 
           setCenter({ latitude: position.coords.latitude, longitude: position.coords.longitude })
@@ -87,10 +88,11 @@ export default defineComponent({
 
       currentTimeZone.value = time.timeZoneId
 
+      const id = `${Math.random()}`
       addMarker({
         latitude: value.geometry.location.lat(),
         longitude: value.geometry.location.lng(),
-        id: value.place_id
+        id
       })
 
       setCenter({
@@ -98,7 +100,7 @@ export default defineComponent({
         longitude: value.geometry.location.lng()
       })
 
-      addHistory({ address: value.formatted_address, id: value.place_id })
+      addHistory({ address: value.formatted_address, id })
     }
 
     const handleRemoveHistory = async () => {
