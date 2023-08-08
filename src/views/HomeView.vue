@@ -6,7 +6,9 @@
       v-bind:utc-offset="utcOffset"
       v-bind:current-time-zone="currentTimeZone"
     />
+
     <GoogleMap v-bind:center="center" v-bind:markers="markers" />
+
     <HistorySection v-bind:handle-remove-history="handleRemoveHistory" />
   </main>
 </template>

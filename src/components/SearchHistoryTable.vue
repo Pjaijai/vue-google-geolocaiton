@@ -67,11 +67,11 @@ export default defineComponent({
 
 <template>
   <div class="relative w-full h-full">
-    <div v-if="displayedItems.length" class="w-full h-full">
+    <div v-if="displayedItems.length" class="w-full h-[90%] overflow-x-auto rounded-lg">
       <div
         v-for="item in displayedItems"
         :key="item.id"
-        class="w-full flex flex-row items-center p-2 h-[9%] text-base border-b"
+        class="w-full flex flex-row items-center p-2 h-fit text-base border-b"
       >
         <input
           type="checkbox"
