@@ -1,6 +1,6 @@
 <script lang="ts">
 import SearchHistoryTable from '@/components/SearchHistoryTable.vue'
-import { PropType } from 'vue'
+import type { PropType } from 'vue'
 
 export default {
   props: {

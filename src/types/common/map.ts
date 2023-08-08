@@ -13,4 +13,4 @@ interface ICoordinate {
   latitude: undefined | number
 }
 
-export { ICenter, IMarkers, ICoordinate }
+export type { ICenter, IMarkers, ICoordinate }

@@ -1,4 +1,4 @@
-interface IGMapAutoCompleteReplyResponse {
+export interface IGMapAutoCompleteReplyResponse {
   geometry: {
     location: {
       lat: () => number
@@ -9,5 +9,3 @@ interface IGMapAutoCompleteReplyResponse {
   utc_offset_minutes: number
   place_id: string
 }
-
-export default IGMapAutoCompleteReplyResponse

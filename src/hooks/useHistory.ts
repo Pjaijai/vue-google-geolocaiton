@@ -1,4 +1,4 @@
-import ILocationHistoryItem from '@/types/common/locationHistoryItem'
+import type { ILocationHistoryItem } from '@/types/common/locationHistoryItem'
 import { reactive, ref } from 'vue'
 const history = ref<ILocationHistoryItem[]>([])
 const selectedHistoryId = reactive<Set<string>>(new Set())

@@ -1,6 +1,6 @@
 <script lang="ts">
-import { PropType } from 'vue'
-import { ICenter, IMarkers } from '@/types/common/map'
+import type { PropType } from 'vue'
+import type { ICenter, IMarkers } from '@/types/common/map'
 export default {
   props: {
     center: {

@@ -1,5 +1,5 @@
-import IGetTimZoneByCoordinate from '@/types/api/response/getTimZoneByCoordinate'
-import { ICoordinate } from '@/types/common/map'
+import type IGetTimZoneByCoordinate from '@/types/api/response/getTimZoneByCoordinate'
+import type { ICoordinate } from '@/types/common/map'
 
 const getTimeZoneByCoordinate = async (arg: ICoordinate) => {
   const GOOGLE_API_URL = 'https://maps.googleapis.com/maps/api/timezone/json?location='

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, PropType, ref, watch } from 'vue'
+import { defineComponent, ref, type PropType, watch } from 'vue'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 
