@@ -72,7 +72,7 @@ export default defineComponent({
 
           addHistory({
             address: location.formatted_address,
-            id: location.place_id
+            id
           })
 
           isLoading.value = false
