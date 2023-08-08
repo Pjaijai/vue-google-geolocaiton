@@ -50,9 +50,8 @@ export default defineComponent({
           dayjs.extend(utc)
           dayjs.extend(timezone)
 
-          const timeZoneId = 'Europe/London'
           const currentDate = dayjs()
-          const timeZoneOffset = currentDate.tz(timeZoneId).utcOffset()
+          const timeZoneOffset = currentDate.tz(time.timeZoneId).utcOffset()
 
           currentTimeZone.value = time.timeZoneId
           utcOffset.value = timeZoneOffset
