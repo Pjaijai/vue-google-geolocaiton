@@ -12,11 +12,12 @@ import {
   faTrashCan,
   faChevronRight,
   faChevronLeft,
-  faMapLocationDot
+  faMapLocationDot,
+  faSpinner
 } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
-library.add(faUserSecret, faTrashCan, faChevronRight, faChevronLeft, faMapLocationDot)
+library.add(faUserSecret, faTrashCan, faChevronRight, faChevronLeft, faMapLocationDot, faSpinner)
 
 const app = createApp(App)
 

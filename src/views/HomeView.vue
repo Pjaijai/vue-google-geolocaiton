@@ -5,6 +5,7 @@
       v-bind:set-place="setPlace"
       v-bind:utc-offset="utcOffset"
       v-bind:current-time-zone="currentTimeZone"
+      v-bind:is-loading="isLoading"
     />
 
     <GoogleMap v-bind:center="center" v-bind:markers="markers" />
@@ -33,8 +34,10 @@ export default defineComponent({
     const { center, markers, addMarker, setCenter, removeMarkers } = useMap()
     const { history, addHistory, removeSelectedHistory, selectedHistoryId } = useHistory()
     const utcOffset = ref<number>(0)
+    const isLoading = ref<boolean>(false)
 
     const handleGetLocation = async () => {
+      isLoading.value = true
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const res = await getLocationByCoordinate({
@@ -71,6 +74,8 @@ export default defineComponent({
             address: location.formatted_address,
             id: location.place_id
           })
+
+          isLoading.value = false
         },
         (error) => {
           alert('Please allow Geolocation')
@@ -117,7 +122,8 @@ export default defineComponent({
       history,
       handleRemoveHistory,
       utcOffset,
-      currentTimeZone
+      currentTimeZone,
+      isLoading
     }
   },
   components: { ToolBar, GoogleMap, HistorySection }
